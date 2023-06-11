@@ -1,6 +1,5 @@
 from library import Library
 from client import Client
-import csv
 import uuid
 from cassandra.cluster import Cluster
 
@@ -20,7 +19,6 @@ def getAtribute(sth, atribute = None):
         return None
 def show(r):
     for i in r:
-        # print(i)
         for name, el in zip(i._fields,i):
             print(name, " ", el)
         print()
@@ -118,17 +116,18 @@ if __name__ == "__main__":
     
     if client_id is None:
         #chose library
-        print("Which library would you like to choose?")
+        print("LIBRARY PICKING")
+        print(tab+"Which library would you like to choose?", end = "\n\t")
         row_libs = session.execute("SELECT * FROM libraries;") 
         showOptions(row_libs, "name")
-        lib =  input("Type the name here: ")
+        lib =  input(tab+"Type the name here: ")
         collection_id = getAtribute(session.execute(f"SELECT * FROM libraries WHERE name = '{lib}' ALLOW FILTERING;"), "id")
         while None is collection_id:
-            print(f"There is no such a library as '{lib}' in our system.")
-            print("Available libraries: ")
+            print(f"{tab}There is no such a library as '{lib}' in our system.")
+            print(tab+"Available libraries: ")
             showOptions(row_libs, "name")
-            lib = input("Type the library name: ")
-        print(f"Great choice! Library {lib} has a great collection of various books.")
+            lib = input(tab+"Type the library name: ")
+        print(tab+f"Great choice! Library {lib} has a great collection of various books.")
 
         client_id = str(uuid.uuid4().hex)
         shelf = "shelf_" + client_id
@@ -139,65 +138,14 @@ if __name__ == "__main__":
     lib =  getAtribute(session.execute(f"SELECT * FROM clients WHERE id = '{client_id}' ALLOW FILTERING;"), "library")
     collection_id =  getAtribute(session.execute(f"SELECT * FROM libraries WHERE name = '{lib}' ALLOW FILTERING;"), "id")
 
-    print(lib)
     print("\nRESERVATION")
     answer = input(tab+"Would you like to make a reservation? (y/n): ")
     session = lendBook(answer, lib, collection_id, client_id, session)
-
-    showOptions(session.execute(f"SELECT * FROM shelf_{client_id};"), "title")
     
     print("\nRETURNING")
     answer = input(tab+"Would you like to return any book? (y/n): ")
     session = returnBook(answer, lib, client_id, session)
 
     print("Thanks for a visit!")
-
-
-
-   
-
-
-
-
-
-
-
-
-
-
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    # title = "Zuzanka na trawie"
-
-    # clients[1].lendBook(title)
-    # clients[1].returnBook(title)
-
-    # print("collectioons")
-    # for l in libraries:
-    #     print("library: ",l.ID)
-    #     show(session.execute(f"SELECT * FROM collection_{l.ID};"))    
-
-    # libraries[0].removeBook(title)
-    # libraries[1].removeBook(title)
 
     cluster.shutdown
