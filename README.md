@@ -8,20 +8,19 @@ In our library system, the client has his favorite library, that he can borrow a
 Every library has its own collection that contains titles and the availability of all books in this library. When the book is borrowed, the availability is set to False, and the title appears on the client's own shelf. When the client returns the book, the title is deleted from his private shelf and the availability is changed to True again.
 
 ### Database schema
-![image](https://github.com/Batukuju/project-big-data/assets/75094119/c171c9d5-7dc6-42bc-b6f3-1b21659c026e)
-
-na razie do edycji https://dbdiagram.io/d/6485fa2a722eb77494c47dab
+![image](https://github.com/Batukuju/project-big-data/assets/75094119/63b259f4-a548-4558-95b1-8f11577d0b68)
 
 ## Project structure
 
 ### Project content
 The project is divided into 2 parts:
-1) Console application, whereas a client you want to return or borrow a book from one library.
-2) Stress tests:
-2.1. Stress Test 1: The client makes the same request very quickly. -> Client want to borrow the same book all and all over again.
-2.2. Stress Test 2: Two or more clients make the possible requests randomly.-> 2 clients select to borrow/return a book as two separate threads. 
-2.3. Stress Test 3: Immediate occupancy of all seats/reservations on 2 clients.-> 2 clients are iteratively borrowing all books from the library.
-2.4. Stress Test 4: (only for pairs) constant cancellations and seat occupancy. -> Client can return the book to the library.
+1. Console application, whereas a client you want to return or borrow a book from one library.
+2. Stress tests:
+- Stress Test 1: Client borrows and returns the same book 100 times.
+- Stress Test 2: Two clients select to borrow or return a random book as two separate threads. 
+- Stress Test 3: Two clients tries to borrow and return consecutive books from the library.
+- Stress Test 4: Two different clients fight for one book 100 times.
+
 
 ### File system
 - story.py -> Console Application
