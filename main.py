@@ -47,7 +47,7 @@ if __name__ == "__main__":
     clients, libraries = returnLists(session)
 
     
-    book_title = "Zuzanka na trawie"
+    book_title = "Geometria analityczna"
 
     libraries[0].addBook(book_title)
     libraries[1].addBook(book_title)

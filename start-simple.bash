@@ -9,6 +9,6 @@ INSTANCE_ALPHA=$(docker inspect --format="{{ .NetworkSettings.IPAddress }}" alph
 sleep 1
 printf "Node Alpha:\t ${INSTANCE_ALPHA}\n"
 
-sleep 60
+sleep 60 
 
 python3 initial_setup.py

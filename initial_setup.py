@@ -6,7 +6,7 @@ KEYSPACE_NAME = "libraries_system"
 # Create keyspace
 cluster = Cluster()
 session = cluster.connect()
-session.execute(f"CREATE KEYSPACE " + KEYSPACE_NAME + " WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1};")
+session.execute(f"CREATE KEYSPACE " + KEYSPACE_NAME + " WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 3};")
 cluster.shutdown()
 
 # Create tables
@@ -30,7 +30,7 @@ session.execute("CREATE TABLE libraries( \
                 )
 
 # populate table clients
-with open(r"data/clients.csv") as f:
+with open("data/clients.csv") as f:
     data = csv.DictReader(f)
     for i, row in enumerate(data):
         name = row["name"]
@@ -45,8 +45,8 @@ with open(r"data/clients.csv") as f:
         query = f'CREATE TABLE IF NOT EXISTs shelf_{id} (title text PRIMARY KEY);'
         session.execute(query)
 # populate libraries
-with open(r"data/libraries.csv") as l:
-    with open(r"data/books.csv") as b:
+with open("data/libraries.csv") as l:
+    with open("data/books.csv") as b:
         libraries = list(csv.DictReader(l))
         n_lib = len (list(libraries))
         books = list(csv.DictReader(b))

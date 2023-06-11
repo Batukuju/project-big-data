@@ -27,6 +27,7 @@ INSTANCE_GAMMA=$(docker inspect --format="{{ .NetworkSettings.IPAddress }}" gamm
 sleep 1
 printf "Node Gamma:\t ${INSTANCE_GAMMA}\n"
 
-printf "(For correct performence it is advised to wait approx. 60s)\n"
+sleep 60
+
 
 python3 initial_setup.py
