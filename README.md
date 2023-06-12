@@ -42,4 +42,5 @@ The project is divided into 2 parts:
 ```bash
 $ bash setup.bash 
 $ python3 story.py // To get console application:
-$ python3 main.py //To play around```
+$ python3 main.py //To play around
+```
